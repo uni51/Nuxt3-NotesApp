@@ -35,11 +35,16 @@ const useAuth = () => {
     if (error) throw error;
   };
 
+  const isLoggedIn = () => {
+    return !!user.value;
+  };
+
 	return {
 		user,
 		signUp,
 		signIn,
 		signOut,
+    isLoggedIn,
 	}
 }
 

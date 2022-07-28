@@ -48,7 +48,6 @@ const handleSubmit = async () => {
           />
         </div>
         <NButton @click="handleSubmit">Submit</NButton>
-        <NButton @click="signOut">Logout</NButton>
         <P class="error">{{ authError }}</P>
         <p @click="toggleAuthState">
           {{
