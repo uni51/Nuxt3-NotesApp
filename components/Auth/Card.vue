@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const authState = ref<"login" | "signup">("login");
+const authError = ref("");
 const input = reactive({
   password: "",
   email: "",
@@ -9,16 +10,21 @@ const { signUp, signIn, user, signOut } = useAuth();
 const toggleAuthState = () => {
   if (authState.value === "login") authState.value = "signup";
   else authState.value = "login";
+  authError.value = "";
 };
 
 const handleSubmit = async () => {
-  if (authState.value === "login") {
-    await signIn({ email: input.email, password: input.password });
-  } else {
-    await signUp({ email: input.email, password: input.password });
+  try {
+    if (authState.value === "login") {
+      await signIn({ email: input.email, password: input.password });
+    } else {
+      await signUp({ email: input.email, password: input.password });
+    }
+    input.email = "";
+    input.password = "";
+  } catch (err) {
+    authError.value = err.message;
   }
-  input.email = "";
-  input.password = "";
 };
 </script>
 
@@ -29,10 +35,14 @@ const handleSubmit = async () => {
       {{ user }}
       <div class="input-container">
         <input placeholder="Email" v-model="input.email" />
-        <input placeholder="Password" v-model="input.password" />
+        <input
+          placeholder="Password"
+          v-model="input.password"
+          type="password"
+        />
       </div>
       <NButton @click="handleSubmit">Submit</NButton>
-      <NButton @click="signOut">Logout</NButton>
+      <P class="error">{{ authError }}</P>
       <p @click="toggleAuthState">
         {{
           authState === "login"
@@ -73,5 +83,9 @@ p {
   color: blue;
   font-size: 0.5rem;
   cursor: pointer;
+}
+
+.error {
+  color: red;
 }
 </style>
