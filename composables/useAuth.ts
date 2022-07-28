@@ -14,6 +14,7 @@ const useAuth = () => {
       },
       {
         data: metadata,
+        redirectTo: `${window.location.origin}/myprofile?source=email`,
       }
     );
     if (error) throw error;
