@@ -8,7 +8,7 @@ const input = reactive({
 });
 const router = useRouter();
 
-const { signUp, signIn, user, signOut } = useAuth();
+const { signUp, signIn } = useAuth();
 
 const toggleAuthState = () => {
   if (authState.value === "login") authState.value = "signup";
@@ -38,7 +38,6 @@ const handleSubmit = async () => {
     <NCard class="card">
       <div v-if="!showConfirmEmailMessage">
         <h3>{{ authState }}</h3>
-        {{ user }}
         <div class="input-container">
           <input placeholder="Email" v-model="input.email" />
           <input

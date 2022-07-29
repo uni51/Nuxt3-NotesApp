@@ -1,6 +1,7 @@
 const useAuth = () => {
 	const user = useState("user", () => null);
 	const { supabase } = useSupabase();
+  const router = useRouter();
 
   supabase.auth.onAuthStateChange((e, session) => {
     user.value = session?.user || null;
@@ -33,6 +34,7 @@ const useAuth = () => {
 	const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
+    router.push("/")
   };
 
   const isLoggedIn = () => {
