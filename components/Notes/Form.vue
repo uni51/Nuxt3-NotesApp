@@ -25,7 +25,7 @@ const handleSubmit = async () => {
   <NCard class="card">
     <input class="input" placeholder="My title" v-model="notesInput.title" />
     <textarea class="input" placeholder="My note" v-model="notesInput.note" />
-    <NButton @click="handleSubmit"> Save Note </NButton>
+    <NButton @click="handleSubmit">Save Note</NButton>
   </NCard>
 </template>
 

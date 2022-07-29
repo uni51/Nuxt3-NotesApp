@@ -1,4 +1,18 @@
 <script setup lang="ts">
+import { NotesForm } from "~~/.nuxt/components";
+
+const { supabase } = useSupabase();
+const { user } = useAuth();
+
+const notesResponse = ref();
+
+if (process.client) {
+  notesResponse.value = await supabase
+    .from("notes")
+    .select()
+    .eq("user_id", user.value.id);
+}
+
 definePageMeta({
   middleware: "auth",
 });
@@ -9,6 +23,16 @@ definePageMeta({
     <div class="container">
       <h3>My Notes</h3>
       <NotesForm />
+      <div class="card-container" v-if="notesResponse.data">
+        <NCard
+          class="card"
+          v-for="note in notesResponse.data"
+          :key="notesResponse.id"
+        >
+          <h2>{{ note.title }}</h2>
+          <p>{{ note.note }}</p>
+        </NCard>
+      </div>
     </div>
   </div>
 </template>
@@ -23,5 +47,19 @@ definePageMeta({
 
 h3 {
   font-size: 2rem;
+}
+
+.card {
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+
+.card h2 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.card-container {
+  margin-top: 1.5rem;
 }
 </style>
