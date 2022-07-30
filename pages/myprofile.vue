@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { NotesForm } from "~~/.nuxt/components";
-
 const { supabase } = useSupabase();
 const { user } = useAuth();
 

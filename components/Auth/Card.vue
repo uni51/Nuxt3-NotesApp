@@ -47,7 +47,7 @@ const handleSubmit = async () => {
           />
         </div>
         <NButton @click="handleSubmit">Submit</NButton>
-        <P class="error">{{ authError }}</P>
+        <p class="error">{{ authError }}</p>
         <p @click="toggleAuthState">
           {{
             authState === "login"
